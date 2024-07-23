@@ -1,20 +1,24 @@
-import React from "react";
+export default function Card({ card, highlight }) {
+  const { leadership, resistance, damage, agility, ability } = card;
 
-const Card = ({ card, highlight }) => {
   return (
-    <div className="card bg-secondary rounded-lg shadow-lg border-2 border-primary p-4 m-2 text-text">
-      <h3 className="text-xl font-bold mb-2 text-primary">{card.name}</h3>
-      <p className={highlight === "leadership" ? "text-contrast" : ""}>
-        Leadership: {card.leadership}
+    <div className="card bg-secondary p-4 rounded-lg shadow-md">
+      <h3 className="text-xl font-semibold text-primary mb-2">{card.name}</h3>
+      <p className={`text-base ${highlight === "leadership" ? "text-contrast" : "text-text"}`}>
+        Leadership: {leadership}
       </p>
-      <p className={highlight === "resistance" ? "text-contrast" : ""}>
-        Resistance: {card.resistance}
+      <p className={`text-base ${highlight === "resistance" ? "text-contrast" : "text-text"}`}>
+        Resistance: {resistance}
       </p>
-      <p className={highlight === "damage" ? "text-contrast" : ""}>Damage: {card.damage}</p>
-      <p className={highlight === "agility" ? "text-contrast" : ""}>Agility: {card.agility}</p>
-      <p className={highlight === "ability" ? "text-contrast" : ""}>Ability: {card.ability}</p>
+      <p className={`text-base ${highlight === "damage" ? "text-contrast" : "text-text"}`}>
+        Damage: {damage}
+      </p>
+      <p className={`text-base ${highlight === "agility" ? "text-contrast" : "text-text"}`}>
+        Agility: {agility}
+      </p>
+      <p className={`text-base ${highlight === "ability" ? "text-contrast" : "text-text"}`}>
+        Ability: {ability}
+      </p>
     </div>
   );
-};
-
-export default Card;
+}

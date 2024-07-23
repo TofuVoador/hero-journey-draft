@@ -1,7 +1,7 @@
 export const cards = [
-  { id: 1, name: "Card 1", leadership: 5, resistance: 1, damage: 2, agility: 3, ability: 4 },
-  { id: 2, name: "Card 2", leadership: 4, resistance: 5, damage: 1, agility: 2, ability: 3 },
-  { id: 3, name: "Card 3", leadership: 3, resistance: 4, damage: 5, agility: 1, ability: 2 },
-  { id: 4, name: "Card 4", leadership: 2, resistance: 3, damage: 4, agility: 5, ability: 1 },
-  { id: 5, name: "Card 5", leadership: 1, resistance: 2, damage: 3, agility: 4, ability: 5 },
+  { id: 1, name: "Card 1", leadership: 95, resistance: 91, damage: 92, agility: 93, ability: 94 },
+  { id: 2, name: "Card 2", leadership: 94, resistance: 95, damage: 91, agility: 92, ability: 93 },
+  { id: 3, name: "Card 3", leadership: 93, resistance: 94, damage: 95, agility: 91, ability: 92 },
+  { id: 4, name: "Card 4", leadership: 92, resistance: 93, damage: 94, agility: 95, ability: 91 },
+  { id: 5, name: "Card 5", leadership: 91, resistance: 92, damage: 93, agility: 94, ability: 95 },
 ];

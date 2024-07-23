@@ -5,14 +5,14 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: "class", // Enable dark mode
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
         background: "#252422",
         secondary: "#403d39",
         primary: "#ccc5b9",
-        text: "fffcf2",
+        text: "#fffcf2",
         contrast: "#eb5e28",
       },
     },
