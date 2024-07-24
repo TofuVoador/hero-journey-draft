@@ -10,7 +10,7 @@ const positions = ["Support", "Carry", "Leader", "Frontline", "Flank"];
 const attributes = {
   Leader: "leadership",
   Frontline: "resistance",
-  Carry: "damage",
+  Carry: "power",
   Flank: "agility",
   Support: "ability",
 };
@@ -20,24 +20,43 @@ export default function Home() {
   const [deck, setDeck] = useState([]);
   const [currentCard, setCurrentCard] = useState(null);
   const [comparisonResults, setComparisonResults] = useState([]);
-  const [gameOver, setGameOver] = useState(false); // Flag to indicate game over
 
   useEffect(() => {
     setDeck(shuffleDeck([...cards]));
   }, []);
 
   useEffect(() => {
-    if (deck.length > 0) {
+    if (
+      deck.length > 0 &&
+      !(
+        selectedCards.Leader &&
+        selectedCards.Frontline &&
+        selectedCards.Carry &&
+        selectedCards.Flank &&
+        selectedCards.Support
+      )
+    ) {
       setCurrentCard(deck[0]);
     }
   }, [deck]);
 
   const handlePositionClick = (position) => {
     if (!selectedCards[position]) {
-      setSelectedCards({ ...selectedCards, [position]: currentCard });
+      const newSelectedCards = { ...selectedCards, [position]: currentCard };
+      setSelectedCards(newSelectedCards);
       const newDeck = deck.filter((card) => card.id !== currentCard.id);
       setDeck(newDeck);
-      setCurrentCard(newDeck[0]);
+      if (
+        newSelectedCards.Leader &&
+        newSelectedCards.Frontline &&
+        newSelectedCards.Carry &&
+        newSelectedCards.Flank &&
+        newSelectedCards.Support
+      ) {
+        setCurrentCard(null);
+      } else {
+        setCurrentCard(newDeck[0]);
+      }
     }
   };
 
@@ -52,10 +71,19 @@ export default function Home() {
   };
 
   const getRandomTeams = () => {
-    const finalBoss = enemyTeams.find((team) => team.name === "Final boss");
-    const teamsWithoutBoss = enemyTeams.filter((team) => team.name !== "Final boss");
+    const finalBoss = {
+      name: "The Final Void Demon",
+      last: {
+        description: "The Void Demon got into it's final form. Save the world!",
+        Leader: 97,
+        Frontline: 97,
+        Carry: 97,
+        Flank: 97,
+        Support: 97,
+      },
+    };
 
-    const shuffled = shuffleDeck(teamsWithoutBoss);
+    const shuffled = shuffleDeck(enemyTeams);
     const selectedTeams = shuffled.slice(0, 4);
 
     return [...selectedTeams, finalBoss];
@@ -64,14 +92,27 @@ export default function Home() {
   const compareTeams = () => {
     const teamsToCompare = getRandomTeams();
     const results = teamsToCompare.map((enemyTeam, index) => {
+      let currentTeam = null;
+      if (index === 0) {
+        currentTeam = enemyTeam.first;
+      } else if (index === 1) {
+        currentTeam = enemyTeam.second;
+      } else if (index === 2) {
+        currentTeam = enemyTeam.third;
+      } else if (index === 3) {
+        currentTeam = enemyTeam.fourth;
+      } else {
+        currentTeam = enemyTeam.last;
+      }
+
       let totalScore = 0;
       const detailedComparison = positions.map((position) => {
         const playerCard = selectedCards[position];
-        const enemyCard = enemyTeam[position];
+        const enemyCard = currentTeam[position];
         const attribute = attributes[position];
         if (playerCard && enemyCard) {
           const playerValue = playerCard[attribute] || 0;
-          const enemyValue = enemyCard[attribute] || 0;
+          const enemyValue = enemyCard || 0;
           let result = "Draw";
           if (playerValue > enemyValue) {
             totalScore += 1;
@@ -82,7 +123,6 @@ export default function Home() {
           return {
             position,
             attribute,
-            enemyCardName: enemyCard.name,
             enemyValue,
             result,
           };
@@ -96,15 +136,7 @@ export default function Home() {
         };
       });
 
-      // Determine description based on position
-      let chapterDescription;
-      if (index === 0) {
-        chapterDescription = enemyTeam.descriptionFirst;
-      } else if (index === teamsToCompare.length - 1) {
-        chapterDescription = enemyTeam.descriptionSemifinal;
-      } else {
-        chapterDescription = enemyTeam.descriptionOther;
-      }
+      let chapterDescription = currentTeam.description;
 
       return {
         teamName: enemyTeam.name,
@@ -127,6 +159,7 @@ export default function Home() {
     let index = 0;
 
     const showNextComparison = () => {
+      let gameOver = false;
       if (index >= results.length || gameOver) return;
 
       const result = results[index];
@@ -138,38 +171,32 @@ export default function Home() {
         { ...result, chapterNumber, chapterDescription },
       ]);
 
-      if (result.score < 0) {
-        setGameOver(true);
+      if (result.score < 3) {
+        gameOver = true;
         return;
       }
 
       index += 1;
-      setTimeout(showNextComparison, 3000); // 3 seconds delay between comparisons
+      setTimeout(showNextComparison, 1000); // 3 seconds delay between comparisons
     };
 
     showNextComparison();
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center text-text">
-      <h1 className="text-4xl font-bold mt-8 mb-4 text-primary">Hero's Journey Party</h1>
-      <div className="grid grid-cols-5 gap-4 mb-8">
+    <div className="min-h-screen bg-background flex flex-col items-center text-text p-4 md:p-8">
+      <h1 className="text-3xl md:text-4xl font-bold mt-4 md:mt-8 mb-4 text-primary text-center">
+        Hero's Journey Party
+      </h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-8 w-full">
         {positions.map((position, index) => (
           <div
             key={position}
-            className={`position bg-secondary rounded-lg p-4 shadow-lg flex flex-col items-center ${
-              index === 0
-                ? "col-start-1"
-                : index === 1
-                ? "col-start-2"
-                : index === 2
-                ? "col-start-3"
-                : index === 3
-                ? "col-start-4"
-                : "col-start-5"
-            }`}
+            className="position bg-secondary rounded-lg p-4 shadow-lg flex flex-col items-center"
           >
-            <h2 className="text-2xl font-semibold mb-2 text-primary">{position}</h2>
+            <h2 className="text-xl md:text-2xl font-semibold mb-2 text-primary text-center">
+              {position}
+            </h2>
             {selectedCards[position] ? (
               <Card card={selectedCards[position]} highlight={attributes[position]} />
             ) : (
@@ -183,13 +210,13 @@ export default function Home() {
           </div>
         ))}
       </div>
-      <div className="flex flex-wrap justify-center">
-        {currentCard && <Card card={currentCard} />}
+      <div className="flex flex-wrap justify-center w-full">
+        {currentCard ? <Card card={currentCard} /> : <></>}
       </div>
       {Object.keys(selectedCards).length === 5 && (
         <>
-          <div className="strength bg-secondary rounded-lg p-4 shadow-lg mt-8">
-            <h2 className="text-2xl font-bold text-primary">
+          <div className="strength bg-secondary rounded-lg p-4 shadow-lg mt-8 w-full max-w-lg">
+            <h2 className="text-xl md:text-2xl font-bold text-primary text-center">
               Team Strength: {calculateStrength()}
             </h2>
           </div>
@@ -200,28 +227,32 @@ export default function Home() {
             Compare with Enemy Teams
           </button>
           {comparisonResults.length > 0 && (
-            <div className="comparison-results bg-secondary rounded-lg p-4 shadow-lg mt-8">
-              <h2 className="text-2xl font-bold text-primary">Your team's Journey:</h2>
+            <div className="comparison-results bg-secondary rounded-lg p-4 shadow-lg mt-8 w-full">
+              <h2 className="text-xl md:text-2xl font-bold text-primary text-center">
+                Your team's Journey:
+              </h2>
               {comparisonResults.map(
                 (result, index) =>
                   result &&
                   result.teamName && (
                     <div key={index} className="mt-4">
-                      <h3 className="text-xl font-bold text-primary">
-                        Chapter {result.chapterNumber}: {result.teamName} - {result.power} power
+                      <h3 className="text-lg md:text-xl font-bold text-primary text-center">
+                        Chapter {result.chapterNumber}: {result.teamName}
                       </h3>
-                      <p className="text-base text-primary">{result.chapterDescription}</p>
-                      <div className="grid grid-cols-5 gap-4 mt-2">
+                      <p className="text-base text-primary text-center">
+                        {result.chapterDescription}
+                      </p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-2">
                         {result.detailedComparison.map((comparison) => (
                           <div
                             key={comparison.position}
-                            className={`bg-secondary p-4 rounded-lg shadow-md flex flex-col items-center`}
+                            className="bg-secondary border-primary border-2 p-4 rounded-lg flex flex-col items-center"
                           >
-                            <h4 className="text-lg font-semibold text-primary">
+                            <h4 className="text-lg font-semibold text-primary text-center">
                               {comparison.position}
                             </h4>
                             <p
-                              className={`text-base ${
+                              className={`text-base text-center ${
                                 comparison.result === "Win"
                                   ? "text-green-500"
                                   : comparison.result === "Lose"
@@ -229,8 +260,7 @@ export default function Home() {
                                   : "text-gray-500"
                               }`}
                             >
-                              {comparison.attribute} - Enemy Card: {comparison.enemyCardName}{" "}
-                              (Value: {comparison.enemyValue}) ({comparison.result})
+                              {comparison.enemyValue} {comparison.attribute} ({comparison.result})
                             </p>
                           </div>
                         ))}
