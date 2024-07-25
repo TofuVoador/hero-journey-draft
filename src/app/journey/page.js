@@ -15,11 +15,18 @@ const attributes = {
   Support: "ability",
 };
 
+const epilogue = {
+  title: "Epilogue: The Hero's Triumph",
+  description:
+    "Congratulations! Your team has prevailed in the final battle and saved the world. Your strategic prowess and the strength of your heroes have brought peace and prosperity. Celebrate your victory and cherish the memories of this epic journey.",
+};
+
 export default function Journey() {
   const [selectedCards, setSelectedCards] = useState({});
   const [deck, setDeck] = useState([]);
   const [currentCard, setCurrentCard] = useState(null);
   const [comparisonResults, setComparisonResults] = useState([]);
+  const [showEpilogue, setShowEpilogue] = useState(false);
 
   useEffect(() => {
     setDeck(shuffleDeck([...cards]));
@@ -38,7 +45,7 @@ export default function Journey() {
     ) {
       setCurrentCard(deck[0]);
     }
-  }, [deck]);
+  }, [deck, selectedCards]);
 
   const handlePositionClick = (position) => {
     if (!selectedCards[position]) {
@@ -74,7 +81,7 @@ export default function Journey() {
     const finalBoss = {
       name: "The Final Void Demon",
       last: {
-        description: "The Void Demon got into it's final form. Save the world!",
+        description: "The Void Demon got into its final form. Save the world!",
         Leader: 97,
         Frontline: 97,
         Carry: 97,
@@ -92,6 +99,8 @@ export default function Journey() {
   const compareTeams = () => {
     const teamsToCompare = getRandomTeams();
     const results = teamsToCompare.map((enemyTeam, index) => {
+      let totalScore = 0;
+      let wins = 0;
       let currentTeam = null;
       if (index === 0) {
         currentTeam = enemyTeam.first;
@@ -105,7 +114,6 @@ export default function Journey() {
         currentTeam = enemyTeam.last;
       }
 
-      let totalScore = 0;
       const detailedComparison = positions.map((position) => {
         const playerCard = selectedCards[position];
         const enemyCard = currentTeam[position];
@@ -114,16 +122,19 @@ export default function Journey() {
           const playerValue = playerCard[attribute] || 0;
           const enemyValue = enemyCard || 0;
           let result = "Draw";
+          totalScore += playerValue - enemyValue;
+          let score = playerValue - enemyValue;
           if (playerValue > enemyValue) {
-            totalScore += 1;
+            wins++;
             result = "Win";
           } else if (playerValue < enemyValue) {
             result = "Lose";
+            wins--;
           }
           return {
             position,
             attribute,
-            enemyValue,
+            score,
             result,
           };
         }
@@ -138,17 +149,17 @@ export default function Journey() {
 
       let chapterDescription = currentTeam.description;
 
+      console.log(wins);
+
       return {
         teamName: enemyTeam.name,
         score: totalScore,
+        wins: wins,
         power: enemyTeam.power,
-        chapterDescription, // Add the selected description here
+        chapterDescription,
         detailedComparison,
       };
     });
-
-    // Sort results by power
-    results.sort((a, b) => a.power - b.power);
 
     // Start comparison sequence
     setComparisonResults([]);
@@ -160,24 +171,29 @@ export default function Journey() {
 
     const showNextComparison = () => {
       let gameOver = false;
-      if (index >= results.length || gameOver) return;
-
-      const result = results[index];
-      const chapterNumber = index + 1; // Chapter number starts from 1
-      const chapterDescription = result.chapterDescription || "No description available."; // Use team description
-
-      setComparisonResults((prevResults) => [
-        ...prevResults,
-        { ...result, chapterNumber, chapterDescription },
-      ]);
-
-      if (result.score < 3) {
-        gameOver = true;
+      if (gameOver) return;
+      else if (index >= results.length) {
+        // Check if the player won the final battle
+        const finalBattleResult = results[results.length - 1];
+        if (finalBattleResult.wins > 0) {
+          setShowEpilogue(true);
+        }
         return;
       }
 
+      const result = results[index];
+      const chapterNumber = index + 1;
+
+      setComparisonResults((prevResults) => [...prevResults, { ...result, chapterNumber }]);
+
+      if (result.wins < 0) {
+        gameOver = true;
+        return;
+      } else if (result.wins == 0 && result.score <= 0) {
+      }
+
       index += 1;
-      setTimeout(showNextComparison, 1000); // 3 seconds delay between comparisons
+      setTimeout(showNextComparison, 3000); // 3 second delay between comparisons
     };
 
     showNextComparison();
@@ -185,16 +201,16 @@ export default function Journey() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center text-text p-4 md:p-8">
-      <h1 className="text-3xl md:text-4xl font-bold mt-4 md:mt-8 mb-4 text-primary text-center">
+      <h1 className="text-3xl md:text-4xl font-bold mt-4 md:mt-8 mb-4 text-text text-center">
         Hero's Journey Party
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-8 w-full">
-        {positions.map((position, index) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-4 mb-8 w-full">
+        {positions.map((position) => (
           <div
             key={position}
             className="position bg-secondary rounded-lg p-4 shadow-lg flex flex-col items-center"
           >
-            <h2 className="text-xl md:text-2xl font-semibold mb-2 text-primary text-center">
+            <h2 className="text-xl md:text-2xl font-semibold mb-2 text-text text-center">
               {position}
             </h2>
             {selectedCards[position] ? (
@@ -216,7 +232,7 @@ export default function Journey() {
       {Object.keys(selectedCards).length === 5 && (
         <>
           <div className="strength bg-secondary rounded-lg p-4 shadow-lg mt-8 w-full max-w-lg">
-            <h2 className="text-xl md:text-2xl font-bold text-primary text-center">
+            <h2 className="text-xl md:text-2xl font-bold text-text text-center">
               Team Strength: {calculateStrength()}
             </h2>
           </div>
@@ -228,46 +244,52 @@ export default function Journey() {
           </button>
           {comparisonResults.length > 0 && (
             <div className="comparison-results bg-secondary rounded-lg p-4 shadow-lg mt-8 w-full">
-              <h2 className="text-xl md:text-2xl font-bold text-primary text-center">
+              <h2 className="text-xl md:text-2xl font-bold text-text text-center">
                 Your team's Journey:
               </h2>
-              {comparisonResults.map(
-                (result, index) =>
-                  result &&
-                  result.teamName && (
-                    <div key={index} className="mt-4">
-                      <h3 className="text-lg md:text-xl font-bold text-primary text-center">
-                        Chapter {result.chapterNumber}: {result.teamName}
-                      </h3>
-                      <p className="text-base text-primary text-center">
-                        {result.chapterDescription}
-                      </p>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-2">
-                        {result.detailedComparison.map((comparison) => (
-                          <div
-                            key={comparison.position}
-                            className="bg-secondary border-primary border-2 p-4 rounded-lg flex flex-col items-center"
-                          >
-                            <h4 className="text-lg font-semibold text-primary text-center">
-                              {comparison.position}
-                            </h4>
-                            <p
-                              className={`text-base text-center ${
-                                comparison.result === "Win"
-                                  ? "text-green-500"
-                                  : comparison.result === "Lose"
-                                  ? "text-red-500"
-                                  : "text-gray-500"
-                              }`}
-                            >
-                              {comparison.enemyValue} {comparison.attribute} ({comparison.result})
-                            </p>
-                          </div>
-                        ))}
+              {comparisonResults.map((result, index) => (
+                <div key={index} className="mt-4">
+                  <h3 className="text-lg md:text-xl font-bold text-text text-center">
+                    Chapter {result.chapterNumber}: {result.teamName}
+                  </h3>
+                  <p className="text-base text-text text-center mb-4">
+                    {result.chapterDescription}
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-2">
+                    {result.detailedComparison.map((comparison) => (
+                      <div
+                        key={comparison.position}
+                        className="bg-secondary border-primary border-2 p-4 rounded-lg flex flex-col items-center"
+                      >
+                        <h4 className="text-lg font-semibold text-text text-center">
+                          {comparison.position}
+                        </h4>
+                        <p
+                          className={`text-base text-center ${
+                            comparison.result === "Win"
+                              ? "text-green-500"
+                              : comparison.result === "Lose"
+                              ? "text-red-500"
+                              : "text-gray-500"
+                          }`}
+                        >
+                          {comparison.score > 0 ? `+${comparison.score}` : comparison.score}{" "}
+                          {comparison.attribute} ({comparison.result})
+                        </p>
                       </div>
-                    </div>
-                  )
-              )}
+                    ))}
+                  </div>
+                  <p
+                    className={`text-xl font-bold text-center mt-4 ${
+                      result.wins > 0 || (result.score > 0 && result.win == 0)
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }`}
+                  >
+                    {result.wins > 0 || (result.score > 0 && result.win == 0) ? `Won!` : "Lost..."}
+                  </p>
+                </div>
+              ))}
             </div>
           )}
         </>
