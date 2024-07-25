@@ -200,15 +200,17 @@ export default function Journey() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center text-text p-4 md:p-8">
-      <h1 className="text-3xl md:text-4xl font-bold mt-4 md:mt-8 mb-4 text-text text-center">
+    <div className="min-h-screen bg-background flex flex-col items-center text-text p-4 md:p-8 pb-16 sm:pb-0">
+      <h1 className="text-3xl md:text-4xl font-bold mt-4 sm:mt-8 mb-4 text-text text-center">
         Hero's Journey Party
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-4 mb-8 w-full">
-        {positions.map((position) => (
+      <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-5 gap-4 mb-8 w-full">
+        {positions.map((position, index) => (
           <div
             key={position}
-            className="position bg-secondary rounded-lg p-4 shadow-lg flex flex-col items-center"
+            className={`position bg-secondary rounded-lg p-4 shadow-lg flex flex-col items-center ${
+              index === 2 ? "order-last 2xl:order-none" : ""
+            }`}
           >
             <h2 className="text-xl md:text-2xl font-semibold mb-2 text-text text-center">
               {position}
@@ -255,7 +257,7 @@ export default function Journey() {
                   <p className="text-base text-text text-center mb-4">
                     {result.chapterDescription}
                   </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-2">
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-2">
                     {result.detailedComparison.map((comparison) => (
                       <div
                         key={comparison.position}
