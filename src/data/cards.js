@@ -8,7 +8,7 @@ export const cards = [
     power: 79,
     agility: 99,
     ability: 95,
-    image: "/images/cards/apic.png",
+    image: "/images/cards/Apic.jpg",
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ export const cards = [
     power: 100,
     agility: 85,
     ability: 92,
-    image: "/images/cards/vaphl_zeliak.png",
+    image: "/images/cards/Vaphl_Zeliak.jpg",
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ export const cards = [
     power: 91,
     agility: 93,
     ability: 100,
-    image: "/images/cards/liqra.png",
+    image: "/images/cards/Liqra.jpg",
   },
   {
     id: 4,
@@ -41,7 +41,7 @@ export const cards = [
     power: 83,
     agility: 100,
     ability: 91,
-    image: "/images/cards/jasek.png",
+    image: "/images/cards/Jasek.jpg",
   },
   {
     id: 5,
@@ -52,7 +52,7 @@ export const cards = [
     power: 86,
     agility: 78,
     ability: 99,
-    image: "/images/cards/thalita.png",
+    image: "/images/cards/Thalita.jpg",
   },
   {
     id: 6,
@@ -63,7 +63,7 @@ export const cards = [
     power: 96,
     agility: 81,
     ability: 80,
-    image: "/images/cards/darios.png",
+    image: "/images/cards/Darios.jpg",
   },
   {
     id: 7,
@@ -74,7 +74,7 @@ export const cards = [
     power: 85,
     agility: 87,
     ability: 94,
-    image: "/images/cards/fiona.png",
+    image: "/images/cards/Fiona.jpg",
   },
   {
     id: 8,
@@ -85,7 +85,7 @@ export const cards = [
     power: 98,
     agility: 91,
     ability: 85,
-    image: "/images/cards/ronin.png",
+    image: "/images/cards/Ronin.jpg",
   },
   {
     id: 9,
@@ -96,7 +96,7 @@ export const cards = [
     power: 92,
     agility: 89,
     ability: 96,
-    image: "/images/cards/cassia.png",
+    image: "/images/cards/Cassia.jpg",
   },
   {
     id: 10,
@@ -107,7 +107,7 @@ export const cards = [
     power: 82,
     agility: 96,
     ability: 90,
-    image: "/images/cards/eamom_shield.png",
+    image: "/images/cards/Eamom_Shield.jpg",
   },
   {
     id: 11,
@@ -118,7 +118,7 @@ export const cards = [
     power: 87,
     agility: 90,
     ability: 75,
-    image: "/images/cards/mira.png",
+    image: "/images/cards/Mira.jpg",
   },
   {
     id: 12,
@@ -129,7 +129,7 @@ export const cards = [
     power: 95,
     agility: 75,
     ability: 97,
-    image: "/images/cards/oripo.png",
+    image: "/images/cards/Oripo.jpg",
   },
   {
     id: 13,
@@ -140,7 +140,7 @@ export const cards = [
     power: 93,
     agility: 79,
     ability: 88,
-    image: "/images/cards/kaep_vortox.png",
+    image: "/images/cards/Kaep_Vortox.jpg",
   },
   {
     id: 14,
@@ -151,7 +151,7 @@ export const cards = [
     power: 80,
     agility: 76,
     ability: 81,
-    image: "/images/cards/astrid.png",
+    image: "/images/cards/Astrid.jpg",
   },
   {
     id: 15,
@@ -162,7 +162,7 @@ export const cards = [
     power: 89,
     agility: 95,
     ability: 78,
-    image: "/images/cards/tyrion_s.png",
+    image: "/images/cards/Tyrion_S.jpg",
   },
   {
     id: 16,
@@ -173,7 +173,7 @@ export const cards = [
     power: 75,
     agility: 97,
     ability: 89,
-    image: "/images/cards/seldna.png",
+    image: "/images/cards/Seldna.jpg",
   },
   {
     id: 17,
@@ -184,7 +184,7 @@ export const cards = [
     power: 94,
     agility: 74,
     ability: 82,
-    image: "/images/cards/garvick_forge.png",
+    image: "/images/cards/Garvick_Forge.jpg",
   },
   {
     id: 18,
@@ -195,7 +195,7 @@ export const cards = [
     power: 90,
     agility: 94,
     ability: 72,
-    image: "/images/cards/nyxsa.png",
+    image: "/images/cards/Nyxsa.jpg",
   },
   {
     id: 19,
@@ -206,7 +206,7 @@ export const cards = [
     power: 72,
     agility: 83,
     ability: 98,
-    image: "/images/cards/elysia.png",
+    image: "/images/cards/Elysia.jpg",
   },
   {
     id: 20,
@@ -217,7 +217,7 @@ export const cards = [
     power: 76,
     agility: 73,
     ability: 93,
-    image: "/images/cards/corwip_braver.png",
+    image: "/images/cards/Corwip_Braver.jpg",
   },
   {
     id: 21,
@@ -228,7 +228,7 @@ export const cards = [
     power: 99,
     agility: 77,
     ability: 84,
-    image: "/images/cards/lyta.png",
+    image: "/images/cards/Lyta.jpg",
   },
   {
     id: 22,
@@ -239,7 +239,7 @@ export const cards = [
     power: 77,
     agility: 86,
     ability: 79,
-    image: "/images/cards/damin.png",
+    image: "/images/cards/Damin.jpg",
   },
   {
     id: 23,
@@ -250,7 +250,7 @@ export const cards = [
     power: 97,
     agility: 88,
     ability: 76,
-    image: "/images/cards/jupo_blaze.png",
+    image: "/images/cards/Jupo_Blaze.jpg",
   },
   {
     id: 24,
@@ -261,7 +261,7 @@ export const cards = [
     power: 84,
     agility: 71,
     ability: 83,
-    image: "/images/cards/calkum.png",
+    image: "/images/cards/Calkum.jpg",
   },
   {
     id: 25,
@@ -272,7 +272,7 @@ export const cards = [
     power: 88,
     agility: 72,
     ability: 73,
-    image: "/images/cards/elara_bri.png",
+    image: "/images/cards/Elara_Bri.jpg",
   },
   {
     id: 26,
@@ -283,7 +283,7 @@ export const cards = [
     power: 73,
     agility: 92,
     ability: 87,
-    image: "/images/cards/fian.png",
+    image: "/images/cards/Fian.jpg",
   },
   {
     id: 27,
@@ -294,7 +294,7 @@ export const cards = [
     power: 71,
     agility: 84,
     ability: 71,
-    image: "/images/cards/soreb_stone.png",
+    image: "/images/cards/Soreb_Stone.jpg",
   },
   {
     id: 28,
@@ -305,7 +305,7 @@ export const cards = [
     power: 74,
     agility: 82,
     ability: 77,
-    image: "/images/cards/lioro.png",
+    image: "/images/cards/Lioro.jpg",
   },
   {
     id: 29,
@@ -316,7 +316,7 @@ export const cards = [
     power: 81,
     agility: 80,
     ability: 86,
-    image: "/images/cards/valem_hawk.png",
+    image: "/images/cards/Valem_Hawk.jpg",
   },
   {
     id: 30,
@@ -327,6 +327,6 @@ export const cards = [
     power: 78,
     agility: 98,
     ability: 74,
-    image: "/images/cards/maene.png",
+    image: "/images/cards/Maene.jpg",
   },
 ];
