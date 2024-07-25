@@ -160,7 +160,7 @@ export default function Journey() {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center text-text p-4 md:p-8">
       <h1 className="text-3xl md:text-4xl font-bold mt-4 md:mt-8 mb-4 text-primary text-center">
-        Hero's Journey PvP
+        {`Hero's Journey PvP`}
       </h1>
 
       {/* Player 1 Section */}
