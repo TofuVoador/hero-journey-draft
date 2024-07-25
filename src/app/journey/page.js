@@ -202,7 +202,7 @@ export default function Journey() {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center text-text p-4 md:p-8">
       <h1 className="text-3xl md:text-4xl font-bold mt-4 md:mt-8 mb-4 text-text text-center">
-        {`Hero's Journey Party`}
+        Hero's Journey Party
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-4 mb-8 w-full">
         {positions.map((position) => (
@@ -245,7 +245,7 @@ export default function Journey() {
           {comparisonResults.length > 0 && (
             <div className="comparison-results bg-secondary rounded-lg p-4 shadow-lg mt-8 w-full">
               <h2 className="text-xl md:text-2xl font-bold text-text text-center">
-                {`Your team's Journey:`}
+                Your team's Journey:
               </h2>
               {comparisonResults.map((result, index) => (
                 <div key={index} className="mt-4">
