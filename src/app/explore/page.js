@@ -38,8 +38,11 @@ export default function Explore() {
       />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-4 mb-8 w-full">
         {filteredCards.length > 0 ? (
-          filteredCards.map((card) => (
-            <div className="bg-secondary rounded-lg p-4 shadow-lg flex flex-col items-center">
+          filteredCards.map((card, index) => (
+            <div
+              key={index}
+              className="bg-secondary rounded-lg p-4 shadow-lg flex flex-col items-center"
+            >
               <Card key={card.id} card={card} />
             </div>
           ))
