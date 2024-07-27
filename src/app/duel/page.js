@@ -8,10 +8,10 @@ const positions = ["Support", "Carry", "Leader", "Frontline", "Flank"];
 
 const attributes = {
   Leader: "leadership",
-  Frontline: "resistance",
+  Frontline: "combat",
   Carry: "power",
   Flank: "agility",
-  Support: "ability",
+  Support: "skills",
 };
 
 export default function Journey() {
