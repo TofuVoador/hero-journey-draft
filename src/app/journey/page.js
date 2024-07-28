@@ -15,12 +15,6 @@ const attributes = {
   Support: "skills",
 };
 
-const epilogue = {
-  title: "Epilogue: The Hero's Triumph",
-  description:
-    "Congratulations! Your team has prevailed in the final battle and saved the world. Your strategic prowess and the strength of your heroes have brought peace and prosperity. Celebrate your victory and cherish the memories of this epic journey.",
-};
-
 export default function Journey() {
   const [selectedCards, setSelectedCards] = useState({});
   const [deck, setDeck] = useState([]);
@@ -82,11 +76,11 @@ export default function Journey() {
       name: "The Final Void Demon",
       last: {
         description: "The Void Demon got into its final form. Save the world!",
-        Leader: 97,
-        Frontline: 97,
-        Carry: 97,
-        Flank: 97,
-        Support: 97,
+        Leader: 96,
+        Frontline: 96,
+        Carry: 96,
+        Flank: 96,
+        Support: 96,
       },
     };
 
