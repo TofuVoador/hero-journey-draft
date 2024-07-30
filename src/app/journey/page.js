@@ -196,7 +196,7 @@ export default function Journey() {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center text-text p-4 md:p-8 pb-16 sm:pb-0">
       <h1 className="text-3xl md:text-4xl font-bold mt-4 sm:mt-8 mb-4 text-text text-center">
-        Hero's Journey Party
+        Heroes' Journey: Draft
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-5 gap-4 mb-8 w-full">
         {positions.map((position, index) => (
